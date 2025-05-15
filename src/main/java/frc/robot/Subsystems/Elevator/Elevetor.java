@@ -1,5 +1,7 @@
 package frc.robot.Subsystems.Elevator;
 
-public class Elevetor {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class Elevetor extends SubsystemBase {
     
 }
