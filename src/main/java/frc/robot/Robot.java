@@ -16,13 +16,16 @@ import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.GameConstants;
+import frc.robot.POM_lib.sensors.POMDigitalInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,6 +35,10 @@ import frc.robot.Constants.GameConstants;
  * the project.
  */
 public class Robot extends TimedRobot {
+
+    //POMDigitalInput sensor = new POMDigitalInput(0);
+    
+    
 
     private Command m_autonomousCommand;
 
@@ -54,11 +61,10 @@ public class Robot extends TimedRobot {
         HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_RobotBuilder);
         enableLiveWindowInTest(true);
         autoTime = Shuffleboard.getTab("Auto").add("Time", GameConstants.AUTO_TIME).getEntry();
-        teleopTime = Shuffleboard.getTab("Teleop").add("Time", GameConstants.TELEOP_TIME).getEntry();
+       teleopTime = Shuffleboard.getTab("Teleop").add("Time", GameConstants.TELEOP_TIME).getEntry();
         endGameTime = Shuffleboard.getTab("EndGame").add("Time", GameConstants.ENDGAME_TIME).getEntry();
         voltageEntry = Shuffleboard.getTab("General").add("Voltage", RobotController.getBatteryVoltage()).getEntry();
     }
-
     /**
     * This function is called every robot packet, no matter the mode. Use this for items like
     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
@@ -74,6 +80,7 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         voltageEntry.setDouble(RobotController.getBatteryVoltage());
+        //SmartDashboard.putBoolean("sensor", sensor.get());
     }
 
 
