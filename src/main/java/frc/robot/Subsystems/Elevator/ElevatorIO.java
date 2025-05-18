@@ -38,6 +38,8 @@ public abstract class ElevatorIO extends IOBase {
     
     public abstract void setMotorVoltage(double voltage);
 
+    public abstract void setMotorVoltageWithPID(double voltage);
+
     
 
 

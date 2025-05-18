@@ -84,6 +84,11 @@ public class ElevatorSparkMax extends ElevatorIO {
         motor.setVoltage(voltage);
     }
 
+    @Override
+    public void setMotorVoltageWithPID(double voltage){
+        motor.setVoltage(pidController.calculate(voltage));
+    }
+
 
 
 
