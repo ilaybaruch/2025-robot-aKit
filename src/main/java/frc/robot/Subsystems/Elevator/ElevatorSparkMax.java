@@ -6,6 +6,9 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import dev.doglog.internal.tunable.Tunable;
+
 import com.revrobotics.spark.config.SparkMaxConfig;
 import static frc.robot.Subsystems.Elevator.ElevatorConstants.*;
 
@@ -15,20 +18,24 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.lib.logfields.LogFieldsTable;
+import frc.lib.tuneables.Tuneable;
+import frc.lib.tuneables.TuneableBuilder;
+import frc.lib.tuneables.TuneablesManager;
+import frc.lib.tuneables.extensions.TuneableElevatorFeedforward;
 
-public class ElevatorSparkMax extends ElevatorIO {
+public class ElevatorSparkMax extends ElevatorIO implements Tuneable{
 
     private final SparkMax motor = new SparkMax(0, MotorType.kBrushless);
     private final RelativeEncoder encoder = motor.getEncoder();
     private final DigitalInput limitSwitch = new DigitalInput(0);
     ProfiledPIDController pidController;
-    private ElevatorFeedforward feedforward;
+    private TuneableElevatorFeedforward feedforward;
 
 
     public ElevatorSparkMax (LogFieldsTable FieldsTable){
         super(FieldsTable);
 
-        feedforward = new ElevatorFeedforward(Ks, Kg, Kv, Ka);
+        feedforward = new TuneableElevatorFeedforward(Ks, Kg, Kv, Ka);
         pidController = new ProfiledPIDController(Kp, Ki, Kd, new TrapezoidProfile.Constraints(MAX_VELOCITY,MAX_ACCELERATION));
 
         SparkMaxConfig config = new SparkMaxConfig();
@@ -48,6 +55,26 @@ public class ElevatorSparkMax extends ElevatorIO {
         
 
     }
+
+    @Override
+    public void periodic() {
+        if (isPressed.getAsBoolean()) {
+            encoder.setPosition(0);       
+        }
+
+        LogFieldsTable.updateAllTables();
+        TuneablesManager.update();
+
+    }
+
+    @Override
+    public void initTuneable(TuneableBuilder builder) {
+        builder.addChild("PID controler", pidController);
+        builder.addChild("Feed forward", feedforward);
+
+    }
+
+
 
 
     //inputs
@@ -90,6 +117,11 @@ public class ElevatorSparkMax extends ElevatorIO {
     @Override
     public void setMotorVoltageWithFeedForward(double Goal){
         motor.setVoltage(pidController.calculate(encoder.getPosition(), Goal) + feedforward.calculate(pidController.getSetpoint().velocity));
+    }
+
+    @Override
+    public void setMotorVoltageWithFeedForwardWithoutGoal(){
+        motor.setVoltage(pidController.calculate(encoder.getPosition()) + feedforward.calculate(pidController.getSetpoint().velocity));
     }
 
     

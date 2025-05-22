@@ -20,6 +20,10 @@ public abstract class ElevatorIO extends IOBase {
         super(logFieldsTable);
     }
 
+    public abstract void periodic();
+    
+    
+
     //inputs
 
     protected abstract double getMotorPrecentage();
@@ -38,7 +42,9 @@ public abstract class ElevatorIO extends IOBase {
     
     public abstract void setMotorVoltage(double voltage);
 
-    public abstract void setMotorVoltageWithFeedForward(double voltage);
+    public abstract void setMotorVoltageWithFeedForward(double Goal);
+
+    public abstract void setMotorVoltageWithFeedForwardWithoutGoal();
 
     
 
