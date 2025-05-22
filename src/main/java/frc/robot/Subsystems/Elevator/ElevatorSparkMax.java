@@ -1,8 +1,8 @@
 package frc.robot.Subsystems.Elevator;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.servohub.ServoHub.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -28,7 +28,7 @@ public class ElevatorSparkMax extends ElevatorIO {
     public ElevatorSparkMax (LogFieldsTable FieldsTable){
         super(FieldsTable);
 
-        feedforward = new ElevatorFeedforward(Ks, Kg, Kv);
+        feedforward = new ElevatorFeedforward(Ks, Kg, Kv, Ka);
         pidController = new ProfiledPIDController(Kp, Ki, Kd, new TrapezoidProfile.Constraints(MAX_VELOCITY,MAX_ACCELERATION));
 
         SparkMaxConfig config = new SparkMaxConfig();
@@ -40,16 +40,19 @@ public class ElevatorSparkMax extends ElevatorIO {
         config.encoder.positionConversionFactor(POSITION_CONVERSION_FACTOR)
                 .velocityConversionFactor(POSITION_CONVERSION_FACTOR / 60.0);
 
-        //motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         encoder.setPosition(0);
+
+        pidController.setTolerance(TOLERANCE);
+        
 
     }
 
 
     //inputs
 
-    protected double getMotorSpeed(){
+    protected double getMotorPrecentage(){
         return motor.get();
     }
 
@@ -85,11 +88,13 @@ public class ElevatorSparkMax extends ElevatorIO {
     }
 
     @Override
-    public void setMotorVoltageWithPID(double voltage){
-        motor.setVoltage(pidController.calculate(voltage));
+    public void setMotorVoltageWithFeedForward(double Goal){
+        motor.setVoltage(pidController.calculate(encoder.getPosition(), Goal) + feedforward.calculate(pidController.getSetpoint().velocity));
     }
 
-
+    
+    
+    
 
 
 }

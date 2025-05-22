@@ -8,7 +8,7 @@ import frc.lib.logfields.LogFieldsTable;
 
 public abstract class ElevatorIO extends IOBase {
 
-    public  final DoubleSupplier speed = fields.addDouble("speed", this::getMotorSpeed);
+    public  final DoubleSupplier speed = fields.addDouble("speed", this::getMotorPrecentage);
     public  final DoubleSupplier position = fields.addDouble("position", this::getPosition);
     public  final DoubleSupplier voltage = fields.addDouble("voltage", this::getMotorVoltage);
     public final BooleanSupplier isPressed = fields.addBoolean("is pressed", this::getLimitSwitch);
@@ -22,7 +22,7 @@ public abstract class ElevatorIO extends IOBase {
 
     //inputs
 
-    protected abstract double getMotorSpeed();
+    protected abstract double getMotorPrecentage();
 
     protected abstract double getMotorVoltage();
 
@@ -38,7 +38,7 @@ public abstract class ElevatorIO extends IOBase {
     
     public abstract void setMotorVoltage(double voltage);
 
-    public abstract void setMotorVoltageWithPID(double voltage);
+    public abstract void setMotorVoltageWithFeedForward(double voltage);
 
     
 
