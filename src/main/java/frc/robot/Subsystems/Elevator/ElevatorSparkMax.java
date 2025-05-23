@@ -52,6 +52,8 @@ public class ElevatorSparkMax extends ElevatorIO implements Tuneable{
         encoder.setPosition(0);
 
         pidController.setTolerance(TOLERANCE);
+
+        TuneablesManager.add("Elevator", (Tuneable) this);
         
 
     }
