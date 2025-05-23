@@ -116,12 +116,14 @@ public class ElevatorSparkMax extends ElevatorIO implements Tuneable{
 
     @Override
     public void setMotorVoltageWithFeedForward(double Goal){
-        motor.setVoltage(pidController.calculate(encoder.getPosition(), Goal) + feedforward.calculate(pidController.getSetpoint().velocity));
+        motor.setVoltage(pidController.calculate(encoder.getPosition(), Goal)
+         + feedforward.calculate(pidController.getSetpoint().velocity));
     }
 
     @Override
     public void setMotorVoltageWithFeedForwardWithoutGoal(){
-        motor.setVoltage(pidController.calculate(encoder.getPosition()) + feedforward.calculate(pidController.getSetpoint().velocity));
+        motor.setVoltage(pidController.calculate(encoder.getPosition())
+         + feedforward.calculate(pidController.getSetpoint().velocity));
     }
 
     
