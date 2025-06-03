@@ -14,6 +14,7 @@ package frc.robot;
 
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import dev.doglog.internal.tunable.Tunable;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,6 +25,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.lib.logfields.LogFieldsTable;
+import frc.lib.tuneables.TuneablesManager;
 import frc.robot.Constants.GameConstants;
 import frc.robot.POM_lib.sensors.POMDigitalInput;
 
@@ -80,6 +83,8 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
         voltageEntry.setDouble(RobotController.getBatteryVoltage());
+        LogFieldsTable.updateAllTables();
+        TuneablesManager.update();
         //SmartDashboard.putBoolean("sensor", sensor.get());
     }
 
@@ -150,6 +155,7 @@ public class Robot extends TimedRobot {
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+        TuneablesManager.enable();
     }
 
     /**
