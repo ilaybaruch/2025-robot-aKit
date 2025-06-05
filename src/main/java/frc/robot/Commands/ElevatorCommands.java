@@ -15,12 +15,16 @@ public class ElevatorCommands extends Command {
     }
 
     public Command ElevatorWithoutGoal(Elevetor elevetor){
-        return Commands.runEnd(()-> elevetor.getIO().setMotorVoltageWithFeedForwardWithoutGoal()
+    return Commands.runEnd(()-> elevetor.getIO().setMotorVoltageWithFeedForwardWithoutGoal()
          ,() -> elevetor.getIO().setMotorPrecentage(0),elevetor);
     }
 
     public Command Stop_Elevator(Elevetor elevetor){
         return Commands.run(()-> elevetor.getIO().setMotorPrecentage(0),elevetor);
+    }
+
+    public Command setElevator(Elevetor elevetor){
+        return Commands.runEnd(()-> elevetor.getIO().setMotorVoltage(7),()-> elevetor.getIO().setMotorPrecentage(0),elevetor);
     }
     
     

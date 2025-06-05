@@ -79,7 +79,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    operatorController.a().onTrue(elevatorCommands.ElevatorWithoutGoal(elevetor));
+    //operatorController.a().onTrue(elevatorCommands.ElevatorWithoutGoal(elevetor));
+
+    operatorController.PovUp().onTrue(elevatorCommands.setElevator(elevetor));
 
   }
 

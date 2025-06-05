@@ -37,6 +37,8 @@ public class ElevatorSparkMax extends ElevatorIO implements Tuneable{
 
         feedforward = new TuneableElevatorFeedforward(Ks, Kg, Kv, Ka);
         pidController = new ProfiledPIDController(Kp, Ki, Kd, new TrapezoidProfile.Constraints(MAX_VELOCITY,MAX_ACCELERATION));
+        TuneablesManager.add("PID controller", pidController);
+        TuneablesManager.add("feed forward", feedforward);
 
         SparkMaxConfig config = new SparkMaxConfig();
 

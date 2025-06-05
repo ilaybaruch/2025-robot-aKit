@@ -1,7 +1,7 @@
 package frc.robot.Subsystems.Elevator;
 
 public class ElevatorConstants {
-    public static final int MOTOR_ID = 0;
+    public static final int MOTOR_ID = 16;
     public static final double Kp = 0;
     public static final double Ki = 0;
     public static final double Kd = 0;
