@@ -9,17 +9,17 @@ import frc.robot.Subsystems.Elevator.Elevetor;
 
 public class ElevatorCommands extends Command {
 
-    public Command Elevator(Elevetor elevetor,double speed){
+    public Command ElevatorWithGoal(Elevetor elevetor){
         return Commands.runEnd(()-> elevetor.getIO().setMotorVoltageWithFeedForward(L2_POS)
          ,() -> elevetor.getIO().setMotorPrecentage(0),elevetor);
     }
 
-    public Command ElevatorWithoutGoal(Elevetor elevetor,double speed){
+    public Command ElevatorWithoutGoal(Elevetor elevetor){
         return Commands.runEnd(()-> elevetor.getIO().setMotorVoltageWithFeedForwardWithoutGoal()
          ,() -> elevetor.getIO().setMotorPrecentage(0),elevetor);
     }
 
-    public Command Stop_Elevator(Elevetor elevetor,double speed){
+    public Command Stop_Elevator(Elevetor elevetor){
         return Commands.run(()-> elevetor.getIO().setMotorPrecentage(0),elevetor);
     }
     
