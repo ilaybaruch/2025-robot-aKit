@@ -40,7 +40,7 @@ public class ElevatorSparkMax extends ElevatorIO implements Tuneable{
 
         SparkMaxConfig config = new SparkMaxConfig();
 
-        config.idleMode(IdleMode.kCoast).inverted(INVERTED)
+        config.idleMode(IdleMode.kBrake).inverted(INVERTED)
                 .smartCurrentLimit(CURRENT_LIMIT)
                 .voltageCompensation(VOLTAGE_COMPENSATION);
 
