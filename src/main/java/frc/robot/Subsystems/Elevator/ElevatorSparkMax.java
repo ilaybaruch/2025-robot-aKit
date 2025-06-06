@@ -17,6 +17,7 @@ import static frc.robot.Subsystems.Elevator.ElevatorConstants.VOLTAGE_COMPENSATI
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -54,4 +55,15 @@ public class ElevatorSparkMax {
         pidController.setTolerance(0);
 
     }
-}
+
+    
+
+    
+        
+
+          
+
+        
+                 
+                
+
