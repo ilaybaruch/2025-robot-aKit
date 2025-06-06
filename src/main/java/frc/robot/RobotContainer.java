@@ -47,6 +47,7 @@ public class RobotContainer {
   
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   
   private final PomXboxController driverController = new PomXboxController(0);
   private final PomXboxController operatorController = new PomXboxController(1);
@@ -56,7 +57,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   private RobotContainer() {
-
+    elevetor = new Elevetor();
     
     configureButtonBindings();
 
@@ -79,9 +80,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    //operatorController.a().onTrue(elevatorCommands.ElevatorWithoutGoal(elevetor));
+    // operatorController.a().whileTrue(elevatorCommands.ElevatorWithoutGoal(elevetor));
 
-    operatorController.PovUp().onTrue(elevatorCommands.setElevator(elevetor));
+    operatorController.PovUp().whileTrue(elevatorCommands.setElevator(elevetor));
 
   }
 
