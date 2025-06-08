@@ -6,7 +6,8 @@ import static frc.robot.Subsystems.Elevator.ElevatorConstants.*;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkBase;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
